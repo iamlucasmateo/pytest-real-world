@@ -1,0 +1,9 @@
+pytest . # run tests from current directory
+pytest tests/test_gist.py # run tests from specific folder
+-v[vv] # verbose
+-p no:warnings # disable warnings
+--disable-warnings # disable warnings
+-s # print output (don't capture it)
+-k <keywords_here> # filter by keyword
+-m <marker> # filter by marker
+-m "not <marker>" # leave out the marked tests
