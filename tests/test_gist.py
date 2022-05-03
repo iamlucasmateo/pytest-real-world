@@ -1,4 +1,7 @@
 import pytest
+from typing import List
+
+from logic.business import Company
 
 def test_first_test():
     assert 1 == 1
@@ -25,15 +28,7 @@ def test_xfail():
 def test_slow():
     assert 1 == 1
 
-class Company:
-    def __init__(self, name: str, stock_symbol: str):
-        self.name = name
-        self.stock_symbol = stock_symbol
-    
-    def __str__(self):
-        return f"{self.name}:{self.stock_symbol}"
-
-# Fixtures
+# Fixtures: they are created (and destroyed) before each function that needs it
 @pytest.fixture
 def company() -> Company:
     return Company(name="Fiver", stock_symbol="FVRR")
@@ -61,3 +56,48 @@ def test_raise_exepction():
     with pytest.raises(ValueError) as e:
         raise_exc()
     assert "This is an exception" == str(e.value)
+
+
+# Fixtures with arguments
+@pytest.fixture
+def company_factory(**kwargs):
+    def _company_factory(**kwargs) -> Company:
+        company_name = kwargs.pop("name", "Test Company")
+        company_stock_symbol = kwargs.pop("stock", "TEST")
+        return Company(company_name, company_stock_symbol)
+    return _company_factory
+
+def test_3_cases(company_factory):
+    google = company_factory(name="google", stock="GOOG")
+    yahoo = company_factory(name="yahoo", stock="YAHOO")
+    test = company_factory()
+    assert google.name == "google"
+    assert yahoo.stock_symbol == "YAHOO"
+    assert test.name == "Test Company"
+
+# Indirect parameterization
+
+@pytest.fixture
+# uses company fixture
+def companies(request, company) -> List[Company]:
+    companies = []
+    names = request.param
+    for name in names:
+        companies.append(Company(name=name))
+    
+    return companies
+
+@pytest.mark.parametrize(
+    "companies", 
+    [["google", "yahoo"], ["facebook", "instagram"]], 
+    indirect=True
+)
+def test_companies(companies):
+    company_names = set([x.name for x in companies])
+    expected_names_0 = set(["google", "yahoo"])
+    expected_names_1 = set(["facebook", "instagram"])
+    if "google" in company_names:
+        assert company_names == expected_names_0
+    if "facebook" in company_names:
+        assert company_names == expected_names_1
+     

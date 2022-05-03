@@ -7,3 +7,4 @@ pytest tests/test_gist.py # run tests from specific folder
 -k <keywords_here> # filter by keyword
 -m <marker> # filter by marker
 -m "not <marker>" # leave out the marked tests
+pytest --fixtures # show fixtures (from pytest and user created) 
