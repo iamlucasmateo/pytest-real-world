@@ -1,5 +1,5 @@
 import pytest
-from logic.business import Phonebook
+from logic.phone import Phonebook
 
 # Fixture with finalizer (cleans up at the end in case it is needed)
 @pytest.fixture

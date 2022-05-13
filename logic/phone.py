@@ -14,17 +14,3 @@ class Phonebook:
     def names(self):
         return self.entries.keys()
 
-class Company:
-    def __init__(self, name: str, stock_symbol: str = "GENERIC"):
-        self.name = name
-        self.stock_symbol = stock_symbol
-    
-    def __str__(self):
-        return f"{self.name}:{self.stock_symbol}"
-
-
-
-def useful():
-    x = db_utils()
-    return x
-

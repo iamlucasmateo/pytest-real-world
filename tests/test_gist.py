@@ -1,7 +1,8 @@
 import pytest
 from typing import List
+from unittest.mock import MagicMock, patch
 
-from logic.business import Company
+from logic.business import Company, useful
 
 def test_first_test():
     assert 1 == 1
@@ -100,4 +101,13 @@ def test_companies(companies):
         assert company_names == expected_names_0
     if "facebook" in company_names:
         assert company_names == expected_names_1
-     
+
+# mocking: use the path from which the function is used, not the one in which it is defined
+# db_utils is defined in the utils module, but we use it in the business module
+@patch("logic.business.db_utils", MagicMock(return_value=42))
+def test_mocking_utils():
+    assert useful() == 42
+
+def test_mocking_utils_other_syntax():
+    with patch("logic.business.db_utils", MagicMock(return_value=42)) as mock_db_write:
+        assert useful() == 42
