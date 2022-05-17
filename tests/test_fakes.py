@@ -1,3 +1,6 @@
+# Fakes are more complex than Stubs
+# Fake is a real implementation (unsuitable for production)
+
 import os
 import tempfile
 import io

@@ -1,8 +1,10 @@
 # Stub / Fakes: test return values / check state change (using a public API)
+# Mock is a Stub, additionally verifying interactions
 # Mock / Spy: test method calls
 # The "spy" listens to interactions between a function / class and another one being called / used
 # Difference between Spy and Mock: the mock fails the test if the expected thing doesn't happen
 # right away. The Spy "spies" the interaction and then checks what went on at the end of the test
+
 # to see these tests fail, change the implementation of the method
 
 import pytest

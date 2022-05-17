@@ -1,3 +1,5 @@
+# Stubs return hard coded answers (no logic)
+
 from unittest.mock import Mock
 
 import pytest

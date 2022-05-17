@@ -8,3 +8,12 @@ pytest tests/test_gist.py # run tests from specific folder
 -m <marker> # filter by marker
 -m "not <marker>" # leave out the marked tests
 pytest --fixtures # show fixtures (from pytest and user created) 
+pytest <testing_module> --cov-report [term-missing or html] --cov <tested_module> # coverage report
+# pragma: no cover # exclude block of code from coverage report
+
+-----------------------------------------------------------------------
+python -m unittest [<file>] [Options]
+
+Coverage in unittest:
+1) python -m coverage run -m unittest
+2) python -m coverage
